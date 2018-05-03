@@ -87,7 +87,7 @@ public class MaxFeeTxHandler {
             Transaction.Output correspondingOutput = pool.getTxOutput(utxo);
             inputSum += correspondingOutput.value;
         }
-        return outputSum - inputSum;
+        return inputSum - outputSum;
     }
 
     /**
@@ -104,7 +104,7 @@ public class MaxFeeTxHandler {
             for (int i = 0; i < possibleTxs.length; i++) {
                 if (!added[i] && isValidTx(possibleTxs[i])) {
                     double currentTxFee = getTxFee(possibleTxs[i]);
-                    if (index == -1 || currentTxFee > maxTxFee) {
+                    if (index == -1 || currentTxFee >= maxTxFee) {
                         index = i;
                         maxTxFee = currentTxFee;
                     }
