@@ -55,14 +55,17 @@ public class CompliantNode implements Node {
                 HashSet<Transaction> cur = getSet(currentSetOf, i);
                 if (!isSubset(prev, cur)) {
                     malicious[i] = true;
-                    for (Transaction tx : prev)
-                        if (proposals.contains(tx))
-                            proposals.remove(tx);
                 }
                 for (Transaction tx : cur)
                     setOf.get(i).add(tx);
             }
         }
+        /* for (int i = 0; i < n; i++) {
+            if (followees[i] && malicious[i]) {
+                for (Transaction tx : getSet(setOf, i))
+                    proposals.remove(i);
+            }
+        } */
         for (Candidate candidate : candidates) {
             if (!malicious[candidate.sender])
                 proposals.add(candidate.tx);
